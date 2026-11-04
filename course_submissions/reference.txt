@@ -1,0 +1,31 @@
+RAG Foundations
+
+Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Küttler, H., Lewis, M., Yih, W., Rocktäschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. Advances in Neural Information Processing Systems, 33, 9459–9474. https://arxiv.org/abs/2005.11401
+(The original RAG paper — foundational citation for the architecture this project builds on.)
+Gao, Y., Xiong, Y., Gao, X., Jia, K., Pan, J., Bi, Y., Dai, Y., Sun, J., Wang, M., & Wang, H. (2024). Retrieval-augmented generation for large language models: A survey. arXiv preprint. https://arxiv.org/abs/2312.10997
+(Broad survey — useful for framing RAG architecture variants and where security fits into the pipeline.)
+
+Prompt Injection
+
+Greshake, K., Abdelnabi, S., Mishra, S., Endres, C., Holz, T., & Fritz, M. (2023). Not what you've signed up for: Compromising real-world LLM-integrated applications with indirect prompt injection. Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security. https://arxiv.org/abs/2302.12173
+(The seminal paper on indirect prompt injection — directly relevant, since RAG poisoning is a form of indirect injection via retrieved content.)
+Liu, Y., Jia, Y., Geng, R., Jia, J., & Gong, N. Z. (2024). Prompt injection attack against LLM-integrated applications. arXiv preprint. https://arxiv.org/abs/2306.05499
+Chen, X., et al. (2024). Automatic and universal prompt injection attacks against large language models. arXiv preprint. https://arxiv.org/abs/2403.04957
+Prompt injection attacks in large language models and AI agent systems: A comprehensive review of vulnerabilities, attack vectors, and defense mechanisms. (2025). Information, 17(1), 54. https://www.mdpi.com/2078-2489/17/1/54
+(Survey covering both prompt injection and agent-specific attack vectors — bridges Sections on injection and excessive agency.)
+
+RAG / Knowledge-Base Poisoning
+
+Zou, W., Geng, R., Wang, B., & Jia, J. (2025). PoisonedRAG: Knowledge corruption attacks to retrieval-augmented generation of large language models. Proceedings of the 34th USENIX Security Symposium. https://www.usenix.org/system/files/usenixsecurity25-zou-poisonedrag.pdf
+(Core reference for the poisoning-detector component — demonstrates the attack this project's Piece B is built to defend against.)
+
+Excessive Agency / Agentic AI Security
+
+OWASP Foundation. (2025). OWASP Top 10 for Large Language Model Applications. https://owasp.org/www-project-top-10-for-large-language-model-applications/
+(Industry-standard risk taxonomy — source for the "Excessive Agency" and "Prompt Injection" categories used to frame the threat model.)
+Cobalt. (2025). LLM vulnerability: Excessive agency overview. https://www.cobalt.io/blog/llm-vulnerability-excessive-agency
+(Practitioner-oriented explanation of excessive agency risk, used to motivate the tool-guardrail design.)
+
+Kubernetes 
+
+https://kubernetes.io/docs/home/

@@ -1,0 +1,22 @@
+services:
+  gateway:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data:ro                   # knowledge base — read-only bind mount
+      - chroma_data:/app/chroma_db_langchain  # vector store — persists across restarts
+      - audit_data:/app/audit_data            # audit DB — persists across restarts
+    environment:
+      # Mac/Windows: host.docker.internal resolves to the host machine.
+      # Linux: Docker Desktop sets this automatically; for plain Docker Engine
+      # the extra_hosts entry below makes it work too.
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - CHROMA_DIR=/app/chroma_db_langchain
+      - AUDIT_DB_PATH=/app/audit_data/audit.db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # no-op on Mac/Windows; needed on Linux
+
+volumes:
+  chroma_data:
+  audit_data:

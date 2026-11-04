@@ -1,0 +1,24 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# macOS
+.DS_Store
+
+# Runtime data (regeneratable or sensitive)
+audit.db
+chroma_db/
+chroma_db_langchain/
+
+# Earlier phases (not published)
+phase1/
+phase2/
+phase3/
+phase4/

@@ -1,0 +1,16 @@
+langchain
+langchain-ollama
+langchain-community
+langchain-chroma
+langchain-text-splitters
+
+
+#core
+python-dotenv
+tiktoken
+chromadb
+ipykernel
+ollama
+
+fastapi 
+uvicorn

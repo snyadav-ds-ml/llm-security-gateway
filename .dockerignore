@@ -1,0 +1,28 @@
+# Virtual environment — Docker installs its own via uv sync
+.venv/
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Git and tooling
+.git/
+.claude/
+
+# Local data that is handled via Docker volumes
+chroma_db/
+chroma_db_langchain/
+audit.db
+audit_data/
+
+# Earlier development phases — the final server only needs phase5/
+phase1/
+phase2/
+phase3/
+phase4/
+
+# Non-runtime files
+docs/
+course_submissions/
+*.md
