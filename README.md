@@ -162,7 +162,7 @@ Tests the allow-list and request-consistency check directly, bypassing the LLM.
 uv run python -m phase5.test_guardrails
 ```
 
-Expected output: `5/5 tests passed`
+Expected output: `6/6 tests passed`
 
 ### Full test suite (40 cases)
 
@@ -220,23 +220,21 @@ done
 
 ## Audit Log
 
-Every security decision is written to SQLite. Inspect it while the system is running:
+Every security decision is written to SQLite.
+
+**Local mode** — the DB is written to `./audit.db` in the project root:
 
 ```bash
-# All recent chat requests
 sqlite3 audit.db "SELECT timestamp, question, blocked, block_reason FROM audit_log ORDER BY id DESC LIMIT 10;"
-
-# All ingest decisions
 sqlite3 audit.db "SELECT source, provenance, decision, reason FROM ingest_log ORDER BY id DESC LIMIT 10;"
-
-# Tool call attempts
 sqlite3 audit.db "SELECT tool_name, blocked, block_reason FROM tool_call_log ORDER BY id DESC LIMIT 10;"
 ```
 
-With Docker, the audit DB lives in a named volume. To copy it to the host:
+**Docker mode** — the DB lives in a named volume inside the container. Copy it to the host first:
 
 ```bash
 docker compose cp gateway:/app/audit_data/audit.db ./audit_export.db
+sqlite3 audit_export.db "SELECT timestamp, question, blocked, block_reason FROM audit_log ORDER BY id DESC LIMIT 10;"
 ```
 
 ---
