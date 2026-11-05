@@ -14,6 +14,7 @@ The system wraps a RAG chatbot in three security components:
 - Rate limiting (10 req / 60s per IP)
 - PII redaction on input (email, phone)
 - Regex injection detection (7 patterns)
+- Query normalization: maps user-facing synonyms ("vacation days", "PTO", "maternity leave") to knowledge-base terminology before the query reaches the LLM
 - Output filtering (PII + denylist) before the answer is returned
 - Every decision logged to SQLite
 
@@ -56,8 +57,8 @@ ollama list
 ### 2. Clone and enter the project
 
 ```bash
-git clone <repo-url>
-cd Security_Project
+git clone https://github.com/snyadav-ds-ml/llm-security-gateway.git
+cd llm-security-gateway
 ```
 
 ---
@@ -259,5 +260,5 @@ docker compose cp gateway:/app/audit_data/audit.db ./audit_export.db
 
 - Injection detection is regex-only and can be bypassed by rephrasing attacks to avoid the patterns.
 - Embedding outlier detection can miss poisoned documents written in on-topic language.
-- `llama3.2:3b` does not reliably invoke tools; end-to-end agent guardrail tests require a larger model.
+- `llama3.2:3b` does not reliably stay within the knowledge base for out-of-scope questions — it falls back to its training data (e.g. "What is the capital of France?" returns "Paris" instead of "I don't know"). A larger model or a stricter retrieval-only prompt would fix this.
 - The rate limiter is in-memory and resets on server restart; a Redis-backed limiter is needed for multi-process deployments.
