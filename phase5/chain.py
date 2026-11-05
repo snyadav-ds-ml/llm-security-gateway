@@ -34,7 +34,9 @@ def build_chain():
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
     llm = ChatOllama(model="llama3.2:3b", base_url=OLLAMA_URL)
-    prompt = ChatPromptTemplate.from_template("""You are a helpful assistant. Answer using only the context below. If the answer is not in the context, say "I don't know."
+    prompt = ChatPromptTemplate.from_template("""You are a helpful HR assistant. Answer using only the context below.
+Treat "vacation days", "annual leave", and "paid time off" as equivalent terms.
+If the answer is not in the context, say "I don't know."
 
 Context: {context}
 

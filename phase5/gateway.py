@@ -59,6 +59,9 @@ async def chat(request: ChatRequest, req: Request):
         log_request(question, answer=None, blocked=True, block_reason=reason)
         raise HTTPException(status_code=400, detail=reason)
 
+    # 3b. normalize synonyms to match knowledge-base terminology
+    question = normalize_query(question)
+
     # 4. generate
     executor = GuardedAgentExecutor(
         user_question=question,

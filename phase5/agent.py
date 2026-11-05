@@ -79,9 +79,14 @@ def build_agent(llm, retriever, collection):
     tools = list(ALLOWED_TOOLS.values())
 
     prompt = ChatPromptTemplate.from_messages([
-        ("system", """You are a helpful assiatant. Answer using only the knowledge base
-         If the answer is not in the Knowledge base, say "I don't know."
-         Only call falg_document_for_review if the user explicitly asks you to flag something."""),
+        ("system", """You are a helpful HR assistant. You MUST call search_knowledge_base before answering any question.
+When reading the results, treat these as the same concept:
+- "vacation days" = "annual leave" = "paid time off" = "paid annual leave"
+- "sick days" = "sick leave"
+- "parental leave" = "maternity leave" = "paternity leave"
+Extract the answer from the retrieved text even when the wording differs from the question.
+Only say "I don't know" if the topic is completely absent from the results.
+Only call flag_document_for_review if the user explicitly asks to flag something."""),
          ("human", "{input}"),
          MessagesPlaceholder("agent_scratchpad"),
     ])

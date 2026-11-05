@@ -65,6 +65,23 @@ def check_injection(text: str) -> tuple[bool, str | None]:
     return True, None # returns (allowed: bool, reason: str | None)
     
 
+# Query normalization — maps user-facing synonyms to the terminology used in
+# the knowledge base documents, so a small LLM doesn't have to do synonym reasoning.
+_SYNONYM_MAP = [
+    (re.compile(r'\bvacation\s+days?\b', re.IGNORECASE), "annual leave"),
+    (re.compile(r'\bpaid\s+time\s+off\b', re.IGNORECASE), "annual leave"),
+    (re.compile(r'\bPTO\b'), "annual leave"),
+    (re.compile(r'\bsick\s+days?\b', re.IGNORECASE), "sick leave"),
+    (re.compile(r'\bmaternity\s+leave\b', re.IGNORECASE), "parental leave"),
+    (re.compile(r'\bpaternity\s+leave\b', re.IGNORECASE), "parental leave"),
+]
+
+def normalize_query(text: str) -> str:
+    for pattern, replacement in _SYNONYM_MAP:
+        text = pattern.sub(replacement, text)
+    return text
+
+
 # guardrail 4 - Output Filtering
 DENYLIST = [
     re.compile(r'\bpassword\b', re.IGNORECASE),
